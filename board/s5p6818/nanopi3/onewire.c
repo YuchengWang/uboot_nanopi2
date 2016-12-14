@@ -25,6 +25,8 @@
 #include <mach-api.h>
 #include <onewire.h>
 
+#define nop()
+
 #define SAMPLE_BPS		9600
 #define SAMPLE_IN_US	104		/* (1000000 / BPS) */
 

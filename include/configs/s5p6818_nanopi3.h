@@ -36,7 +36,13 @@
 /*-----------------------------------------------------------------------
  *  u-boot-2014.07
  */
+#define CONFIG_ARM64 1
+#ifdef CONFIG_ARM64
+#define CONFIG_SYS_LDSCRIPT "arch/arm/cpu/slsiap/u-boot_64.lds"
+#define COUNTER_FREQUENCY 25000000/* 25MHz */
+#else
 #define CONFIG_SYS_LDSCRIPT "arch/arm/cpu/slsiap/u-boot.lds"
+#endif
 #define CONFIG_SYS_GENERIC_BOARD
 
 #define CONFIG_MACH_S5P6818
@@ -59,11 +65,11 @@
  */
 #define CONFIG_RELOC_TO_TEXT_BASE												/* Relocate u-boot code to TEXT_BASE */
 
-#define CONFIG_SYS_TEXT_BASE			0x42C00000
+#define CONFIG_SYS_TEXT_BASE			0x43C00000
 #define CONFIG_SYS_INIT_SP_ADDR			CONFIG_SYS_TEXT_BASE					/* init and run stack pointer */
 
 /* malloc() pool */
-#define CONFIG_MEM_MALLOC_START			0x43000000
+#define CONFIG_MEM_MALLOC_START			0x44000000
 #define CONFIG_MEM_MALLOC_LENGTH		32*1024*1024
 
 /* when CONFIG_LCD */
@@ -79,7 +85,9 @@
 #undef  CONFIG_USE_IRQ		     												/* Not used: not need IRQ/FIQ stuff	*/
 #define CONFIG_SYS_HZ	   				1000									/* decrementer freq: 1ms ticks */
 
+#define CFG_MEM_PHY_SYSTEM_BASE  		0x40000000
 #define CONFIG_SYS_SDRAM_BASE			CFG_MEM_PHY_SYSTEM_BASE					/* board_init_f */
+#define CPU_RELEASE_ADDR 				(CONFIG_SYS_SDRAM_BASE + 0x7fff0)
 #define CONFIG_SYS_SDRAM_SIZE			CFG_MEM_PHY_SYSTEM_SIZE
 
 #define CONFIG_NR_DRAM_BANKS	   		1										/* dram 1 bank num */
@@ -103,7 +111,7 @@
 #define CONFIG_ARCH_MISC_INIT													/* board_init_r, call arch_misc_init */
 //#define CONFIG_SYS_ICACHE_OFF
 
-#define CONFIG_MMU_ENABLE
+//#define CONFIG_MMU_ENABLE
 #ifdef  CONFIG_MMU_ENABLE
 #undef  CONFIG_SYS_DCACHE_OFF
 #endif
@@ -112,7 +120,7 @@
  *	U-Boot default cmd
  */
 #define CONFIG_CMD_MEMORY   /* md mm nm mw cp cmp crc base loop mtest */
-//#define CONFIG_CMD_NET      /* bootp, tftpboot, rarpboot    */
+#define CONFIG_CMD_NET      /* bootp, tftpboot, rarpboot    */
 #define CONFIG_CMD_RUN      /* run command in env variable  */
 #define CONFIG_CMD_SAVEENV  /* saveenv          */
 #define CONFIG_CMD_SOURCE   /* "source" command support */
@@ -126,10 +134,10 @@
 #define CONFIG_BOOTDELAY	   			0
 #define CONFIG_ZERO_BOOTDELAY_CHECK
 #define CONFIG_ETHADDR		   			00:e2:1c:ba:e8:60
-#define CONFIG_NETMASK		   			255.255.255.0
-#define CONFIG_IPADDR					192.168.1.165
-#define CONFIG_SERVERIP					192.168.1.164
-#define CONFIG_GATEWAYIP				192.168.1.254
+#define CONFIG_NETMASK		   			255.0.0.0
+#define CONFIG_IPADDR					10.42.0.2
+#define CONFIG_SERVERIP					10.42.0.1
+#define CONFIG_GATEWAYIP				10.42.0.1
 #define CONFIG_BOOTFILE					"uImage"  		/* File to load	*/
 
 #define CONFIG_LOADCMD_CH0	"ext4load mmc 0:1"
@@ -196,7 +204,7 @@
  * depend on CONFIG_CMD_NET
  */
 //#define CONFIG_DRIVER_DM9000			1
-//#define CONFIG_DESIGNWARE_ETH			1
+#define CONFIG_DESIGNWARE_ETH			1
 
 #if defined(CONFIG_CMD_NET)
 	/*
@@ -246,7 +254,7 @@
 	 * Net command
 	 */
 	#define CONFIG_CMD_PING
-//	#define CONFIG_CMD_DHCP
+	//#define CONFIG_CMD_DHCP
 
 #endif
 

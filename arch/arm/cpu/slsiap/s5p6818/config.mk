@@ -28,6 +28,8 @@ PLATFORM_RELFLAGS += -fno-short-enums -fstrict-aliasing -Wno-unused-but-set-vari
 # supported by more tool-chains
 PF_CPPFLAGS_ARMV8 := $(call cc-option, -march=armv8-a)
 
+CONFIG_ARM64 = y
+
 ifeq ($(CONFIG_ARM64), y)
 PLATFORM_RELFLAGS += -ffixed-x18 -march=armv8-a -mstrict-align -Wint-to-pointer-cast
 PLATFORM_RELFLAGS += $(call cc-option, -mtune=cortex-a53)
