@@ -29,3 +29,7 @@ void reset_cpu(ulong ignored)
 	NX_CLKPWR_SetSoftwareResetEnable(CTRUE);
 	NX_CLKPWR_DoSoftwareReset();
 }
+
+void power_down_cpu(U32 cpunum){
+	NX_CLKPWR_SetCPUPowerOff(cpunum);
+}

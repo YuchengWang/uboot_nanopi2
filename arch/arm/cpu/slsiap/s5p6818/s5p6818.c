@@ -194,11 +194,33 @@ void nxp_before_linux(void)
 
 int nxp_cpu_version(void)
 {
+
 	return 0;
 }
 
+void print_el(){
+    unsigned long long rx;
+
+    asm volatile ("MRS %0, MIDR_EL1": : "r" (rx));
+    printf("MIDR_EL1 value:0x%08x\n", rx);
+
+    asm volatile ("mrs %0, ID_AA64PFR0_EL1": : "r" (rx));
+    printf("ID_AA64PFR0_EL1 value:0x%08x\n", rx);
+}
+
+extern void power_down_cpu(U32 cpunum);
+extern U32 NX_CLKPWR_GetCPUPowerOnStatus32(void);
+extern U32 NX_CLKPWR_GetCPUPowerOffStatus32(void);
+
 void nxp_print_cpuinfo(void)
 {
+	//U32 i;
+	//for(i=1; i<8; i++)
+	//	power_down_cpu(i);
+	print_el();
+	//printf("%s:%d cpu power on status:0x%08x \n", __FILE__, __LINE__, NX_CLKPWR_GetCPUPowerOnStatus32());
+	//printf("%s:%d cpu power off status:0x%08x \n", __FILE__, __LINE__, NX_CLKPWR_GetCPUPowerOffStatus32());
+
 	nxp_clk_print();
 }
 
