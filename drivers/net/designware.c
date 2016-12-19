@@ -17,6 +17,34 @@
 #include <asm/io.h>
 #include "designware.h"
 
+
+static print_descriptor(struct dmamacdescr* p, int line){
+    printf("line:%d ", line);
+    printf("txrx_status:0x%08x ", p->txrx_status);
+    printf("dmamac_cntl:0x%08x ", p->dmamac_cntl);
+    printf("dmamac_addr:0x%08x ", p->dmamac_addr);
+    printf("dmamac_next:0x%08x ", p->dmamac_next);
+    printf("\n");
+}
+
+static int print_packet(unsigned char *packet, int len, int line)
+{
+    int i;
+
+    printf("line:%d Packet:0x%0x, len:0x%0x\n",line, (unsigned int)packet, len);
+    for(i = 0; i < len; i ++)
+    {
+        printf("%02x ",packet[i]);
+        if((i+1)%16 == 0)
+            printf("\n");
+
+    }
+    printf("\n");
+
+    return 0;
+}
+
+
 #if !defined(CONFIG_PHYLIB)
 # error "DesignWare Ether MAC requires PHYLIB - missing CONFIG_PHYLIB"
 #endif

@@ -39,6 +39,7 @@ struct eth_mac_regs {
 #define MII_PORTSELECT		(1 << 15)
 #define FES_100			(1 << 14)
 #define DISABLERXOWN		(1 << 13)
+#define LOOPBACK 			(1 << 12)
 #define FULLDPLXMODE		(1 << 11)
 #define RXENABLE		(1 << 2)
 #define TXENABLE		(1 << 3)
@@ -108,8 +109,8 @@ struct eth_dma_regs {
 struct dmamacdescr {
 	u32 txrx_status;
 	u32 dmamac_cntl;
-	void *dmamac_addr;
-	struct dmamacdescr *dmamac_next;
+	u32 dmamac_addr;
+	u32 dmamac_next;
 } __aligned(ARCH_DMA_MINALIGN);
 
 /*
