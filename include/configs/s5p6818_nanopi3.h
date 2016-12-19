@@ -39,7 +39,7 @@
 #define CONFIG_ARM64 1
 #ifdef CONFIG_ARM64
 #define CONFIG_SYS_LDSCRIPT "arch/arm/cpu/slsiap/u-boot_64.lds"
-#define COUNTER_FREQUENCY 25000000/* 25MHz */
+//#define COUNTER_FREQUENCY 24000000 		/* 24MHz */
 #else
 #define CONFIG_SYS_LDSCRIPT "arch/arm/cpu/slsiap/u-boot.lds"
 #endif
@@ -121,6 +121,8 @@
  */
 #define CONFIG_CMD_MEMORY   /* md mm nm mw cp cmp crc base loop mtest */
 #define CONFIG_CMD_NET      /* bootp, tftpboot, rarpboot    */
+#define CONFIG_CMD_RARP
+#define CONFIG_CMD_CDP
 #define CONFIG_CMD_RUN      /* run command in env variable  */
 #define CONFIG_CMD_SAVEENV  /* saveenv          */
 #define CONFIG_CMD_SOURCE   /* "source" command support */
@@ -134,7 +136,7 @@
 #define CONFIG_BOOTDELAY	   			0
 #define CONFIG_ZERO_BOOTDELAY_CHECK
 #define CONFIG_ETHADDR		   			00:e2:1c:ba:e8:60
-#define CONFIG_NETMASK		   			255.0.0.0
+#define CONFIG_NETMASK		   			255.255.255.0
 #define CONFIG_IPADDR					10.42.0.2
 #define CONFIG_SERVERIP					10.42.0.1
 #define CONFIG_GATEWAYIP				10.42.0.1
@@ -254,7 +256,7 @@
 	 * Net command
 	 */
 	#define CONFIG_CMD_PING
-	//#define CONFIG_CMD_DHCP
+	#define CONFIG_CMD_DHCP
 
 #endif
 
